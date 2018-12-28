@@ -1,18 +1,11 @@
 <template>
   <layout>
     <h2 class="title">Project: VivifyScrum</h2>
-    <v-content class="content">
-      <div class="logs-panel">
-        <p
-          class="line"
-          v-for="log in logs"
-          :key="log.id"
-          :class="{ [log.type]: true }"
-        >
-          > {{ log.text }}
-        </p>
-      </div>
-    </v-content>
+    <div class="logs-panel">
+      <RecycleScroller :items="logs" :item-height="10">
+        <div slot-scope="{ item }" class="line">> {{ item.text }}</div>
+      </RecycleScroller>
+    </div>
   </layout>
 </template>
 
@@ -62,13 +55,9 @@ export default {
   margin-bottom: 1rem;
 }
 
-.content {
-  height: 100vh;
-}
-
 .logs-panel {
+  height: 70vh;
   border: 1px solid #000;
-  height: 100vh;
   background: black;
   color: white;
   text-align: left;
