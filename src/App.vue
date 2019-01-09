@@ -4,6 +4,7 @@
 
 <style lang="scss">
 @import "./../node_modules/vuetify/dist/vuetify.min.css";
+@import "./../node_modules/vue-virtual-scroller/dist/vue-virtual-scroller.css";
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

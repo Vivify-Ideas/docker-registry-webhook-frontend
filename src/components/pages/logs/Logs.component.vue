@@ -2,7 +2,7 @@
   <layout>
     <h2 class="title">Project: VivifyScrum</h2>
     <div class="logs-panel">
-      <RecycleScroller :items="logs" :item-height="10">
+      <RecycleScroller :items="logs" :item-height="20" class="scroller">
         <div slot-scope="{ item }" class="line">> {{ item.text }}</div>
       </RecycleScroller>
     </div>
@@ -33,16 +33,17 @@ export default {
   },
   mounted() {
     this.$subscribeToChannel(this.channelName, data => {
-      const log = {
+      const logs = data.map(log => ({
         id:
           "_" +
           Math.random()
             .toString(36)
             .substr(2, 9),
-        text: data.text,
-        type: data.type
-      };
-      this.logs.push(log);
+        text: log.text,
+        type: log.type,
+        height: 10
+      }));
+      this.logs.push(...logs);
     });
   }
 };
@@ -55,18 +56,26 @@ export default {
   margin-bottom: 1rem;
 }
 
+.scroller {
+  height: 100%;
+  width: 100%;
+}
+
 .logs-panel {
-  height: 70vh;
+  position: absolute;
+  overflow: hidden;
+  top: 10%;
+  bottom: 10%;
+  left: 10%;
+  right: 10%;
   border: 1px solid #000;
   background: black;
   color: white;
   text-align: left;
   border-radius: 5px;
   padding: 1rem;
-  overflow: scroll;
 
   .line {
-    margin: 2px;
     word-break: break-all;
   }
 }
