@@ -1,4 +1,4 @@
-FROM node:9.8.0-onbuild as builder
+FROM node:8.15.0-onbuild as builder
 COPY . .
 RUN yarn
 RUN yarn build
