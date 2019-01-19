@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import ProjectStore from './projects';
+import { ProjectStore } from './projects/projects';
 
 Vue.use(Vuex);
 
@@ -9,3 +9,5 @@ export const store = new Vuex.Store({
     projects: ProjectStore
   }
 });
+
+export * from './projects/action-types';

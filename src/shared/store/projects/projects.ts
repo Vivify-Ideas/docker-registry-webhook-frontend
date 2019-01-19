@@ -1,4 +1,5 @@
 import { MutationTree, ActionTree, GetterTree } from 'vuex';
+import { ADD_PROJECTS } from './action-types';
 
 interface ProjectState {
   projects: Project[];
@@ -15,7 +16,7 @@ const mutations: MutationTree<ProjectState> = {
 };
 
 const actions: ActionTree<ProjectState, ProjectState> = {
-  addProjects({ commit }, projects: Project[]) {
+  [ADD_PROJECTS]({ commit }, projects: Project[]) {
     commit('add', projects);
   }
 };
@@ -26,7 +27,7 @@ const getters: GetterTree<ProjectState, ProjectState> = {
   }
 };
 
-export default {
+export const ProjectStore = {
   state,
   mutations,
   actions,
