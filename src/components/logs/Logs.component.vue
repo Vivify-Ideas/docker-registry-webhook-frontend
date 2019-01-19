@@ -9,31 +9,30 @@
   </layout>
 </template>
 
-<script>
-import LayoutComponent from "./../../layout/layout.component";
+<script lang="ts">
+import Vue from "vue";
+import { Component } from "vue-property-decorator";
+import LayoutComponent from "../layout/layout.component.vue";
 
-export default {
+@Component({
   name: "Logs",
   components: {
     layout: LayoutComponent
-  },
-  data() {
-    return {
-      logs: []
-    };
-  },
-  computed: {
-    channelName() {
-      const { projectName, namespace } = this.$route.params;
-      return `/logs/${projectName}/${namespace}`;
-    }
-  },
+  }
+})
+export default class LogsComponent extends Vue {
+  logs: String[] = [];
+
+  get channelName() {
+    const { projectName, namespace } = this.$route.params;
+    return `/logs/${projectName}/${namespace}`;
+  }
   destroy() {
-    this.$unsubscribeFromChannel(this.channelName);
-  },
+    this.$sockets.unsubscribeFromChannel(this.channelName);
+  }
   mounted() {
-    this.$subscribeToChannel(this.channelName, data => {
-      const logs = data.map(log => ({
+    this.$sockets.subscribeToChannel(this.channelName, (data: any) => {
+      const logs = data.map((log: { text: string; type: string }) => ({
         id:
           "_" +
           Math.random()
@@ -46,7 +45,7 @@ export default {
       this.logs.push(...logs);
     });
   }
-};
+}
 </script>
 
 <style lang="scss">

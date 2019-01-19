@@ -15,23 +15,25 @@
   </layout>
 </template>
 
-<script>
-import LayoutComponent from "./../../layout/layout.component";
-import ProjectCardComponent from "./../../../shared/components/project/project-card.component.vue";
-import store from "./../../../shared/store/Repository.js";
+<script lang="ts">
+import Vue from "vue";
+import Component from "vue-class-component";
 
-export default {
-  name: "Home",
+import ProjectCardComponent from "./../../shared/components/project/project-card.component.vue";
+import LayoutComponent from "../layout/layout.component.vue";
+
+@Component({
+  name: "home",
   components: {
     layout: LayoutComponent,
     "project-card": ProjectCardComponent
-  },
-  computed: {
-    projects() {
-      return store.getProjects();
-    }
   }
-};
+})
+export default class HomeComponent extends Vue {
+  get projects() {
+    return this.$store.getters.getProjects;
+  }
+}
 </script>
 
 <style lang="scss">

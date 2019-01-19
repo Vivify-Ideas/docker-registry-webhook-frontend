@@ -24,7 +24,7 @@
       <v-divider></v-divider>
 
       <v-card-actions>
-        <v-btn color="primary" flat @click="showDialog = false;"> Close </v-btn>
+        <v-btn color="primary" flat @click="showDialog = false"> Close </v-btn>
         <v-spacer></v-spacer>
         <v-btn color="error" flat @click="startBuild"> Build </v-btn>
       </v-card-actions>
@@ -32,37 +32,32 @@
   </v-dialog>
 </template>
 
-<script>
-export default {
-  name: "confirm-build",
-  props: {
-    project: {
-      type: Object,
-      required: true
-    }
-  },
-  data() {
-    return {
-      showDialog: false,
-      branch: ""
-    };
-  },
-  computed: {
-    branches() {
-      return Object.keys(this.project.branches);
-    }
-  },
-  methods: {
-    startBuild() {
-      this.showDialog = false;
-      this.$sendSocket("build", {
-        project: this.project,
-        branch: this.branch
-      });
-    }
-  },
+<script lang="ts">
+import Vue from "vue";
+import { Component, Prop } from "vue-property-decorator";
+
+@Component({
+  name: "confirm-build"
+})
+export default class ConfirmBuildComponent extends Vue {
+  showDialog = false;
+  branch = "";
+
+  @Prop({ required: true, type: Object }) project: Project;
+
+  get branches() {
+    return Object.keys(this.project.branches);
+  }
+
+  startBuild() {
+    this.showDialog = false;
+    this.$sockets.sendSocket("build", {
+      project: this.project,
+      branch: this.branch
+    });
+  }
   mounted() {
     this.branch = this.branches[0];
   }
-};
+}
 </script>

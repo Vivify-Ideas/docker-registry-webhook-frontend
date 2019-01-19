@@ -2,6 +2,12 @@
   <div id="app"><router-view /></div>
 </template>
 
+<script>
+import Vue from "vue";
+
+export default class App extends Vue {}
+</script>
+
 <style lang="scss">
 @import "./../node_modules/vuetify/dist/vuetify.min.css";
 @import "./../node_modules/vue-virtual-scroller/dist/vue-virtual-scroller.css";

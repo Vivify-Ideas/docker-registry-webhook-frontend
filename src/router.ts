@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
-import HomeComponent from "./components/pages/home/Home.component.vue";
-import LogsComponent from "./components/pages/logs/Logs.component.vue";
+import HomeComponent from "./components/home/Home.component.vue";
+import LogsComponent from "./components/logs/Logs.component.vue";
 
 Vue.use(Router);
 
