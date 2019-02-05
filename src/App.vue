@@ -1,11 +1,30 @@
 <template>
-  <div id="app"><router-view /></div>
+  <layout>
+    <div id="app"><router-view/></div>
+  </layout>
 </template>
 
 <script>
 import Vue from "vue";
+import Component from "vue-class-component";
 
-export default class App extends Vue {}
+import LayoutComponent from "./components/layout/layout.component.vue";
+import { USER_TOKEN_KEY, USER_KEY } from "./constants";
+import { AUTHORIZE_ME } from "./shared/store";
+
+@Component({
+  components: {
+    layout: LayoutComponent
+  }
+})
+export default class App extends Vue {
+  created() {
+    const token = localStorage.getItem(USER_TOKEN_KEY);
+    if (token) {
+      this.$store.dispatch(AUTHORIZE_ME);
+    }
+  }
+}
 </script>
 
 <style lang="scss">

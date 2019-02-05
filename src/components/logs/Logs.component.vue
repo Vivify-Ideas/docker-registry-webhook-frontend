@@ -1,24 +1,20 @@
 <template>
-  <layout>
+  <div>
     <h2 class="title">Project: VivifyScrum</h2>
     <div class="logs-panel">
       <RecycleScroller :items="logs" :item-height="20" class="scroller">
         <div slot-scope="{ item }" class="line">> {{ item.text }}</div>
       </RecycleScroller>
     </div>
-  </layout>
+  </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
-import LayoutComponent from "../layout/layout.component.vue";
 
 @Component({
-  name: "Logs",
-  components: {
-    layout: LayoutComponent
-  }
+  name: "Logs"
 })
 export default class LogsComponent extends Vue {
   logs: String[] = [];

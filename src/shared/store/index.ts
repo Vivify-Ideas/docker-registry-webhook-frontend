@@ -1,13 +1,21 @@
 import Vue from 'vue';
-import Vuex from 'vuex';
+import Vuex, { ModuleTree } from 'vuex';
 import { ProjectStore } from './projects/projects';
+import { UserStore } from './user/user';
 
 Vue.use(Vuex);
 
-export const store = new Vuex.Store({
+interface RootState {
+  projects: Project[],
+  user: User
+};
+
+export const store = new Vuex.Store<RootState>({
   modules: {
-    projects: ProjectStore
+    projects: ProjectStore,
+    user: UserStore
   }
 });
 
 export * from './projects/action-types';
+export * from './user/action-types';

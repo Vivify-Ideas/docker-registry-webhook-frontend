@@ -2,6 +2,7 @@
   <v-toolbar>
     <v-toolbar-title>Docker Build Server</v-toolbar-title>
     <v-spacer></v-spacer>
+    <span v-if="userEmail">{{ userEmail }}</span>
   </v-toolbar>
 </template>
 
@@ -22,6 +23,10 @@ export default class MenuComponent extends Vue {
         }
       ]
     };
+  }
+
+  get userEmail(): string {
+    return this.$store.getters.getUserEmail;
   }
 }
 </script>
