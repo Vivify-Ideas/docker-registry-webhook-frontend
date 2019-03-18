@@ -1,39 +1,34 @@
 <template>
-  <layout>
+  <div>
     <h2 class="title">Project: VivifyScrum</h2>
     <div class="logs-panel">
       <RecycleScroller :items="logs" :item-height="20" class="scroller">
         <div slot-scope="{ item }" class="line">> {{ item.text }}</div>
       </RecycleScroller>
     </div>
-  </layout>
+  </div>
 </template>
 
-<script>
-import LayoutComponent from "./../../layout/layout.component";
+<script lang="ts">
+import Vue from "vue";
+import { Component } from "vue-property-decorator";
 
-export default {
-  name: "Logs",
-  components: {
-    layout: LayoutComponent
-  },
-  data() {
-    return {
-      logs: []
-    };
-  },
-  computed: {
-    channelName() {
-      const { projectName, namespace } = this.$route.params;
-      return `/logs/${projectName}/${namespace}`;
-    }
-  },
+@Component({
+  name: "Logs"
+})
+export default class LogsComponent extends Vue {
+  logs: String[] = [];
+
+  get channelName() {
+    const { projectName, namespace } = this.$route.params;
+    return `/logs/${projectName}/${namespace}`;
+  }
   destroy() {
-    this.$unsubscribeFromChannel(this.channelName);
-  },
+    this.$sockets.unsubscribeFromChannel(this.channelName);
+  }
   mounted() {
-    this.$subscribeToChannel(this.channelName, data => {
-      const logs = data.map(log => ({
+    this.$sockets.subscribeToChannel(this.channelName, (data: any) => {
+      const logs = data.map((log: { text: string; type: string }) => ({
         id:
           "_" +
           Math.random()
@@ -46,7 +41,7 @@ export default {
       this.logs.push(...logs);
     });
   }
-};
+}
 </script>
 
 <style lang="scss">

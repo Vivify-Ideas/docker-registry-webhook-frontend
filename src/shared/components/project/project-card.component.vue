@@ -27,24 +27,20 @@
   </v-card>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Prop } from "vue-property-decorator";
 import ConfirmBuildModalComponent from "../confirm-build/confirm-build.component.vue";
+import Vue from "vue";
 
-export default {
+@Component({
   name: "project-card",
   components: {
     "confirm-build": ConfirmBuildModalComponent
-  },
-  props: {
-    project: {
-      type: Object,
-      required: true
-    }
-  },
-  methods: {
-    build() {}
   }
-};
+})
+export default class ProjectCardComponent extends Vue {
+  @Prop({ type: Object, required: true }) project: Project;
+}
 </script>
 
 <style lang="scss">

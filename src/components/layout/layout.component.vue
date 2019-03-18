@@ -8,16 +8,19 @@
   </v-app>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from "vue";
+import { Component, Prop } from "vue-property-decorator";
+
 import MenuComponent from "./menu/menu.component.vue";
 
-export default {
+@Component({
   name: "layout",
   components: {
     "menu-nav": MenuComponent
-  },
-  props: {
-    msg: String
   }
-};
+})
+export default class LayoutComponent extends Vue {
+  @Prop({ type: String }) msg: String;
+}
 </script>
